@@ -1,5 +1,5 @@
 ## Getting started
-
+Link to repository: https://github.com/lyamo-lme/ABPTestTask
 Database. Use this guide or db.sql file in project
 
 1. Change parameter 'Data Source' in 'Default Connection' section in appsetting.json in this section
