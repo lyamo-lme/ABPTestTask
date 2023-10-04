@@ -15,3 +15,7 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\lyamo\RiderProjects\ABPTestTask\ABPTestTask
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/lyamo/RiderProjects/ABPTestTask/ABPTestTask/Views/Stats/Chart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdHNcQ2hhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

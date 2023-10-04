@@ -1,0 +1,52 @@
+@using ABPTestTask.Helpers
+@model ABPTestTask.Models.Experiments
+
+@{
+    Layout = null;
+    int countColorsExpr = @Model.ColorExperiments.Count();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    <div>
+        Color Experiment
+        <p> Count of users: @countColorsExpr </p>
+        @{
+            List<(int countExperiment, string color, double percent)> experimentResult = new List<(int countExperiment, string color, double percent)>();
+            foreach (var color in Constants.Colors)
+            {
+                int countExpColor = @Model.ColorExperiments.Count(x => x.Color.Equals(color));
+                experimentResult.Add(new()
+                {
+                    countExperiment = countExpColor,
+                    color = color,
+                    percent = countExpColor * 100.0 / countColorsExpr
+                });
+            }
+        }
+        <table>
+            <tr>
+                <td>Count of users in color</td>
+                <td>Color</td>
+                <td>Percent</td>
+            </tr>
+
+            @foreach (var experimentUnit in experimentResult)
+            {
+                <tr>
+                    <td>@experimentUnit.countExperiment </td>
+                    <td>@experimentUnit.color </td>
+                    <td>@experimentUnit.percent</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+</body>
+</html>

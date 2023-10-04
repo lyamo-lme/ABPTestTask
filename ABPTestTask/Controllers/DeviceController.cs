@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ABPTestTask.Controllers;
 
 [ApiController]
-[Route("device")]
+[Route("api/device")]
 public class DeviceController : Controller
 {
     private readonly DeviceRepository _deviceRepository;

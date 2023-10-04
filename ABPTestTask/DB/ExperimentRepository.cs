@@ -27,7 +27,7 @@ public class ExperimentRepository
             colorExp.Id = await con.QueryFirstAsync<int>(
                 $"insert into {nameof(ColorExperiment)} ({nameof(ColorExperiment.DeviceId)}, {nameof(ColorExperiment.Color)})" +
                 $" values (@{nameof(ColorExperiment.DeviceId)}, @{nameof(ColorExperiment.Color)})" +
-                $"SELECT @@IDENTITY", new {colorExp.Color,colorExp.DeviceId});
+                $"SELECT @@IDENTITY", new { colorExp.Color, colorExp.DeviceId });
 
             return colorExp;
         }
@@ -46,7 +46,7 @@ public class ExperimentRepository
             priceExp.Id = await con.QueryFirstAsync<int>(
                 $"insert into {nameof(PriceExperiment)} ({nameof(PriceExperiment.DeviceId)}, {nameof(PriceExperiment.Price)})" +
                 $" values (@{nameof(PriceExperiment.DeviceId)}, @{nameof(PriceExperiment.Price)})" +
-                $"SELECT @@IDENTITY", new {priceExp.DeviceId,priceExp.Price});
+                $"SELECT @@IDENTITY", new { priceExp.DeviceId, priceExp.Price });
 
             return priceExp;
         }
@@ -57,16 +57,30 @@ public class ExperimentRepository
         }
     }
 
-   
 
-    public async Task<T?> GetByDeviceId<T>(int deviceId) where T : ForeignKey 
+    public async Task<T?> GetByDeviceId<T>(int deviceId) where T : ForeignKey
     {
         try
         {
-            var nameType = typeof(T).Name;
+            string nameType = typeof(T).Name;
             using var con = Connection;
             return await con.QueryFirstOrDefaultAsync<T>(
                 $"select * from {nameType} where {nameof(ForeignKey.DeviceId)}={deviceId}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<T>> GetExperiments<T>()
+    {
+        try
+        {
+            string nameType = typeof(T).Name;
+            using var con = Connection;
+            return await con.QueryAsync<T>($"select * from {nameType}");
         }
         catch (Exception e)
         {

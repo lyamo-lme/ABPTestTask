@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ABPTestTask.Controllers;
 
 [ApiController]
-[Route("experiment")]
+[Route("api/experiment")]
 public class ExperimentController : Controller
 {
     private readonly ExperimentRepository _experimentRepository;

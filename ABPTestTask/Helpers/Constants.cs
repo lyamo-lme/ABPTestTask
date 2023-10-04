@@ -12,5 +12,5 @@ public static class Constants
         new() { Price = 5, Probabilty = 0.10 }
     };
 
-    public static string[] Colors = new[] { "#FF0000", "#00FF00", "#00FF00" };
+    public static string[] Colors = new[] { "#FF0000", "#00FF00", "#0000FF" };
 }
