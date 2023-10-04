@@ -31,9 +31,9 @@ public class ExperimentController : Controller
 
 
             string color = RandomGenerator.GetRandomButtonColor(Constants.Colors);
-
             await _experimentRepository.InsertColorExperiment(new ColorExperiment()
                 { DeviceId = device.Id, Color = color });
+
 
             return Ok(new ResponseModel<string>("button_color", color));
         }

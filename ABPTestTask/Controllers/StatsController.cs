@@ -13,15 +13,24 @@ public class StatsController : Controller
     {
         _experimentRepository = experimentRepository;
     }
+
     [HttpGet]
     [Route("chart")]
     public async Task<ActionResult> GetChartPage()
     {
-        Experiments experiments = new()
+        try
         {
-            ColorExperiments = await _experimentRepository.GetExperiments<ColorExperiment>(),
-            PriceExperiments = await _experimentRepository.GetExperiments<PriceExperiment>()
-        };
-        return View("Chart", experiments);
+            Experiments experiments = new()
+            {
+                ColorExperiments = await _experimentRepository.GetExperiments<ColorExperiment>(),
+                PriceExperiments = await _experimentRepository.GetExperiments<PriceExperiment>()
+            };
+            return View("Chart", experiments);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return BadRequest();
+        }
     }
 }

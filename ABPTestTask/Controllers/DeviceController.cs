@@ -19,21 +19,29 @@ public class DeviceController : Controller
     [HttpGet]
     public async Task<ActionResult<string>> GetDeviceId()
     {
-        if (Request.Cookies.TryGetValue("device-token", out string? cookieValue))
+        try
         {
-            return cookieValue;
-        }
+            if (Request.Cookies.TryGetValue("device-token", out string? cookieValue))
+            {
+                return cookieValue;
+            }
 
-        string randomString = RandomGenerator.GenerateRandomGeneticString(8);
-        while (await _deviceRepository.GetByDeviceToken(randomString) != null)
+            string randomString = RandomGenerator.GenerateRandomGeneticString(8);
+            while (await _deviceRepository.GetByDeviceToken(randomString) != null)
+            {
+                randomString = RandomGenerator.GenerateRandomGeneticString(8);
+            }
+
+            await _deviceRepository.Insert(new Device { DeviceToken = randomString });
+
+            Response.Cookies.Append("device-token", randomString);
+
+            return Ok(randomString);
+        }
+        catch (Exception e)
         {
-            randomString = RandomGenerator.GenerateRandomGeneticString(8);
+            Console.WriteLine(e.Message);
+            return BadRequest();
         }
-
-        await _deviceRepository.Insert(new Device{DeviceToken = randomString});
-
-        Response.Cookies.Append("device-token", randomString);
-        
-        return Ok(randomString);
     }
 }

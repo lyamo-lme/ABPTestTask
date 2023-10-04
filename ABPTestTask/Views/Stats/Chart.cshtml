@@ -4,6 +4,7 @@
 @{
     Layout = null;
     int countColorsExpr = @Model.ColorExperiments.Count();
+    int countPricesExpr = @Model.PriceExperiments.Count();
 }
 
 <!DOCTYPE html>
@@ -12,17 +13,58 @@
 <head>
     <title>title</title>
 </head>
+<style>
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        div {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #ccc;
+            margin: 20px 0;
+        }
+    </style>
 <body>
 <div>
     <div>
         Color Experiment
         <p> Count of users: @countColorsExpr </p>
         @{
-            List<(int countExperiment, string color, double percent)> experimentResult = new List<(int countExperiment, string color, double percent)>();
+            List<(int countExperiment, string color, double percent)> colorExpRes = new List<(int countExperiment, string color, double percent)>();
             foreach (var color in Constants.Colors)
             {
                 int countExpColor = @Model.ColorExperiments.Count(x => x.Color.Equals(color));
-                experimentResult.Add(new()
+                colorExpRes.Add(new()
                 {
                     countExperiment = countExpColor,
                     color = color,
@@ -37,12 +79,47 @@
                 <td>Percent</td>
             </tr>
 
-            @foreach (var experimentUnit in experimentResult)
+            @foreach (var experimentUnit in colorExpRes)
             {
                 <tr>
                     <td>@experimentUnit.countExperiment </td>
                     <td>@experimentUnit.color </td>
                     <td>@experimentUnit.percent</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <hr/>
+    <div>
+        Price Experiment
+        <p> Count of users: @countPricesExpr </p>
+        @{
+            List<(int countExperiment, decimal price, double percent)> pricesExpRes
+                = new List<(int countExperiment, decimal price, double percent)>();
+            foreach (var priceOption in Constants.PriceOptions)
+            {
+                int priceExpCount = @Model.PriceExperiments.Count(x => x.Price == priceOption.Price);
+                pricesExpRes.Add(new()
+                {
+                    countExperiment = priceExpCount,
+                    price = priceOption.Price,
+                    percent = priceExpCount * 100.0 / countPricesExpr
+                });
+            }
+        }
+        <table>
+            <tr>
+                <td>Count of users in color</td>
+                <td>Price</td>
+                <td>Percent</td>
+            </tr>
+
+            @foreach (var priceExpRes in pricesExpRes)
+            {
+                <tr>
+                    <td>@priceExpRes.countExperiment </td>
+                    <td>@priceExpRes.price</td>
+                    <td>@priceExpRes.percent</td>
                 </tr>
             }
         </table>
