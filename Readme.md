@@ -1,6 +1,6 @@
 ## Getting started
 
-Database
+Database. Use this guide or db.sql file in project
 
 1. Change parameter 'Data Source' in 'Default Connection' section in appsetting.json in this section
 
