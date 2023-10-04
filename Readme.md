@@ -23,7 +23,7 @@ Database. Use this guide or db.sql file in project
 
 ## How to test app
 
-After run app use https://yourdomain/api/test/data?countDevices=YourCountUsers endpoint to
+After run app use https://yourdomain/api/test/data?countDevices=YourCountUsers endpoint to generate data
 
 ```
 [ApiController]
