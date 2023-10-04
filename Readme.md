@@ -40,5 +40,7 @@ public class GenerateTestData : Controller
 }
 ```
 Then you can go to  https://yourdomain/stats/chart endpoint to
-Result:
-![plot](images/Screenshot%202023-10-04%20114928.png)
+Chart Result:
+![plot](images/chart.png)
+Db Result:
+![plot](images/dbResult.png)
