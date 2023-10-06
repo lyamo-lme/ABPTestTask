@@ -28,10 +28,10 @@ public class DeviceController : Controller
                 return cookieValue;
             }
 
-            string randomString = RandomGenerator.GenerateRandomGeneticString(8);
+            string randomString = RandomGenerator.GenerateRandomString(8);
             while (await _deviceRepository.GetByDeviceToken(randomString) != null)
             {
-                randomString = RandomGenerator.GenerateRandomGeneticString(8);
+                randomString = RandomGenerator.GenerateRandomString(8);
             }
 
             await _deviceRepository.Insert(new Device { DeviceToken = randomString });

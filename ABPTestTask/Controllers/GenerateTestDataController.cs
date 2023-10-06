@@ -10,12 +10,12 @@ namespace ABPTestTask.Controllers;
 
 [ApiController]
 [Route("api/test")]
-public class GenerateTestData : Controller
+public class GenerateTestDataController : Controller
 {
     private readonly ExperimentRepository _experimentRepository;
     private readonly DeviceRepository _deviceRepository;
 
-    public GenerateTestData(ExperimentRepository experimentRepository, DeviceRepository deviceRepository)
+    public GenerateTestDataController(ExperimentRepository experimentRepository, DeviceRepository deviceRepository)
     {
         _experimentRepository = experimentRepository;
         _deviceRepository = deviceRepository;
@@ -29,10 +29,10 @@ public class GenerateTestData : Controller
         {
             for (int i = 0; i < countDevices; i++)
             {
-                string randomString = RandomGenerator.GenerateRandomGeneticString(8);
+                string randomString = RandomGenerator.GenerateRandomString(8);
                 while (await _deviceRepository.GetByDeviceToken(randomString) != null)
                 {
-                    randomString = RandomGenerator.GenerateRandomGeneticString(8);
+                    randomString = RandomGenerator.GenerateRandomString(8);
                 }
 
                 var device = await _deviceRepository.Insert(new Device { DeviceToken = randomString });

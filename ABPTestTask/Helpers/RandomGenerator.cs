@@ -7,7 +7,7 @@ namespace ABPTestTask.Helpers;
 
 public class RandomGenerator
 {
-  public  static string GenerateRandomGeneticString(int length)
+  public  static string GenerateRandomString(int length)
     {
         Random random = new Random();
         StringBuilder randString = new StringBuilder(length);
